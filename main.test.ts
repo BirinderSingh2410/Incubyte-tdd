@@ -24,3 +24,8 @@ test('returns sum of the string with new line character', () => {
 test('returns sum if there are different delimiters', () => {
     expect(stringCalculator('//;\n1;2')).toBe(3);
 });
+
+test('returns error string if there negative numbers', () => {
+    expect(()=>stringCalculator('-1,1,2')).toThrow('negative numbers not allowed -1');
+    expect(()=>stringCalculator('-1,-2,5')).toThrow('negative numbers not allowed -1,-2');
+});
