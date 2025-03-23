@@ -16,3 +16,8 @@ test('returns sum of the string', () => {
     expect(stringCalculator('1.5,1.5,2,2.5')).toBe(7.5);
 });
 
+test('returns sum of the string with new line character', () => {
+    expect(stringCalculator('1\n,2,\n3')).toBe(6);
+    expect(stringCalculator('1.5\n,2.2')).toBe(3.7);
+});
+
