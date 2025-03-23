@@ -1,14 +1,14 @@
 import { stringCalculator } from "./main";
 
-test('returns 0 if there is an empty string', () => {
+test('1.returns 0 if there is an empty string', () => {
     expect(stringCalculator('')).toBe(0);
 });
 
-test('returns number if only number is passed', () => {
+test('2.returns number if only number is passed', () => {
     expect(stringCalculator('5')).toBe(5);
 });
 
-test('returns sum of the string', () => {
+test('3.returns sum of the string', () => {
     expect(stringCalculator('1,2')).toBe(3);
     expect(stringCalculator('6,7')).toBe(13);
     expect(stringCalculator('1,1,2,2,4')).toBe(10);
@@ -16,16 +16,21 @@ test('returns sum of the string', () => {
     expect(stringCalculator('1.5,1.5,2,2.5')).toBe(7.5);
 });
 
-test('returns sum of the string with new line character', () => {
+test('4.returns sum of the string with new line character', () => {
     expect(stringCalculator('1\n,2,\n3')).toBe(6);
     expect(stringCalculator('1.5\n,2.2')).toBe(3.7);
 });
 
-test('returns sum if there are different delimiters', () => {
+test('5.returns sum if there are different delimiters', () => {
     expect(stringCalculator('//;\n1;2')).toBe(3);
 });
 
-test('returns error string if there negative numbers', () => {
+test('6.returns error string if there negative numbers', () => {
     expect(()=>stringCalculator('-1,1,2')).toThrow('negative numbers not allowed -1');
     expect(()=>stringCalculator('-1,-2,5')).toThrow('negative numbers not allowed -1,-2');
+});
+
+test('7.Number bigger than 1000 to be ignored', () => {
+    expect(stringCalculator('1001,2')).toBe(2);
+    expect(stringCalculator('1000,1001,990,10')).toBe(2000);
 });

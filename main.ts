@@ -10,7 +10,11 @@ export const stringCalculator = (numbers: string): number | Error => {
     const numberArray = numbers
       .replace("\n", "")
       .split(delimiter)
-      .map((num) => parseFloat(num));
+      .map((num) => {
+        const parsedNum = parseFloat(num);
+        if (parsedNum <= 1000) return parsedNum;
+        else return 0;
+      });
     console.log("this is number array:", numberArray);
     const sum = addNumbers(numberArray);
     console.log("This is sum:", sum);
