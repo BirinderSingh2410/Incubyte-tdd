@@ -5,7 +5,8 @@ export const stringCalculator = (numbers: string): number | Error => {
   } else {
     const delimiter = findDelimitter(numbers);
     if (delimiter != ",") {
-      numbers = numbers.substring(4);
+      const newLineIndex = numbers.indexOf("\n");
+      numbers = numbers.slice(newLineIndex+1,numbers.length)
     }
     const numberArray = numbers
       .replace("\n", "")
@@ -23,7 +24,14 @@ export const stringCalculator = (numbers: string): number | Error => {
 };
 
 const findDelimitter = (delimiter: string) => {
-  if (delimiter.includes("//")) return delimiter[2];
+  if (delimiter.includes("//")) {
+    if (delimiter.includes("[")) {
+      const delimiterStartIndex = delimiter.indexOf("[");
+      const delimiterEndIndex = delimiter.indexOf("]");
+      return delimiter.slice(delimiterStartIndex + 1, delimiterEndIndex);
+    }
+    return delimiter[2];
+  }
   return ",";
 };
 

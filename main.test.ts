@@ -34,3 +34,8 @@ test('7.Number bigger than 1000 to be ignored', () => {
     expect(stringCalculator('1001,2')).toBe(2);
     expect(stringCalculator('1000,1001,990,10')).toBe(2000);
 });
+
+test('8.returns sum wuth Delimiters can be of any length with the following format: “//[delimiter]\n”', () => {
+    expect(stringCalculator('//[***]\n1***2***3')).toBe(6);
+    expect(stringCalculator('//[+]\n10+10+4')).toBe(24);
+});
