@@ -39,3 +39,8 @@ test('8.returns sum wuth Delimiters can be of any length with the following form
     expect(stringCalculator('//[***]\n1***2***3')).toBe(6);
     expect(stringCalculator('//[+]\n10+10+4')).toBe(24);
 });
+
+test('9.returns sum that Allow multiple delimiters and with longer length of delimters', () => {
+    expect(stringCalculator('//[*][%]\n1*2%3')).toBe(6);
+    expect(stringCalculator('//[***][%]\n1***2%5')).toBe(8);
+});

@@ -1,40 +1,65 @@
 export const stringCalculator = (numbers: string): number | Error => {
   if (numbers === "") {
-    console.log("This is empty string");
     return 0;
   } else {
+
+    //Find delimiter symbol
     const delimiter = findDelimitter(numbers);
-    if (delimiter != ",") {
+
+    //If there is delimiter then we need to make the string clear with intial characters.
+    if (numbers.includes('//')) {
       const newLineIndex = numbers.indexOf("\n");
-      numbers = numbers.slice(newLineIndex+1,numbers.length)
+      numbers = numbers.slice(newLineIndex + 1, numbers.length);
     }
+
+    //Eliminating all the delimiters from the string
+    for (let i = 0; i < delimiter.length; i++) {
+      if (numbers.includes(delimiter[i])) {
+        numbers = numbers.split(delimiter[i]).join(",");
+      }
+    }
+
+    //Fetching number array from the string of numbers.
     const numberArray = numbers
       .replace("\n", "")
-      .split(delimiter)
+      .split(",")
       .map((num) => {
         const parsedNum = parseFloat(num);
         if (parsedNum <= 1000) return parsedNum;
         else return 0;
       });
-    console.log("this is number array:", numberArray);
+
     const sum = addNumbers(numberArray);
-    console.log("This is sum:", sum);
+    
     return sum;
   }
 };
 
-const findDelimitter = (delimiter: string) => {
-  if (delimiter.includes("//")) {
-    if (delimiter.includes("[")) {
-      const delimiterStartIndex = delimiter.indexOf("[");
-      const delimiterEndIndex = delimiter.indexOf("]");
-      return delimiter.slice(delimiterStartIndex + 1, delimiterEndIndex);
+//Find Delimiter Logic
+const findDelimitter = (number: string) => {
+  if (number.includes("//")) {
+    if (number.includes("[")) {
+      let delimiterArray: string[] = [];
+      const delimiterEndIndex = number.lastIndexOf("]") + 1;
+      let delimterNumber = number.slice(number.indexOf("["), delimiterEndIndex);
+      while (delimterNumber != "") {
+        const endIndex = delimterNumber.indexOf("]");
+        const startIndex = delimterNumber.indexOf("[");
+        const result = delimterNumber.slice(startIndex + 1, endIndex);
+        delimiterArray.push(result);
+        delimterNumber = delimterNumber.slice(
+          endIndex + 1,
+          delimiterEndIndex + 1
+        );
+      }
+      return delimiterArray;
     }
-    return delimiter[2];
+    return [number[2]];
   }
-  return ",";
+  return [","];
 };
 
+//Sum Logic
 const addNumbers = (numberArray: number[]) => {
   let sum = 0;
   let negativeIntegersArray: number[] = [];
