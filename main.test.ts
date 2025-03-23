@@ -21,3 +21,6 @@ test('returns sum of the string with new line character', () => {
     expect(stringCalculator('1.5\n,2.2')).toBe(3.7);
 });
 
+test('returns sum if there are different delimiters', () => {
+    expect(stringCalculator('//;\n1;2')).toBe(3);
+});

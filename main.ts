@@ -3,13 +3,22 @@ export const stringCalculator = (numbers: string): number => {
     console.log("This is empty string");
     return 0;
   } else {
-    const numberArray = numbers.replace('\n','').split(",").map((num) => parseFloat(num));
+    const delimiter = findDelimitter(numbers)
+    if(delimiter != ','){
+        numbers = numbers.substring(4)
+    }
+    const numberArray = numbers.replace('\n','').split(delimiter).map((num) => parseFloat(num));
     console.log("this is number array:", numberArray)
     const sum = addNumbers(numberArray);
     console.log("This is sum:", sum)
     return sum;
   }
 };
+
+const findDelimitter = (delimiter: string) => {
+    if(delimiter.includes('//'))return delimiter[2]
+    return ','
+}
 
 const addNumbers = (numberArray: number[]) => {
   let sum = 0;
